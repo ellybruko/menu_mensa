@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Mensa Rozzano Infanzia Primavera-Estate 2026</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: #333; }
+        .card { background: white; padding: 1.5rem; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 450px; text-align: center; }
+        
+        /* Titolo Fisso */
+        .header-title { font-size: 1.1rem; color: #2d5a27; font-weight: bold; margin-bottom: 1rem; }
+        
+        .date-info { color: #666; font-size: 0.9rem; margin-bottom: 1rem; border-bottom: 2px solid #eef2ee; padding-bottom: 10px; }
+        .menu-grid { text-align: center; background: #fff; } /* Centrato */
+        .row { margin-bottom: 12px; }
+        .label { font-size: 0.7rem; color: #888; text-transform: uppercase; font-weight: bold; margin-bottom: 2px; }
+        .value { font-size: 1rem; color: #222; font-weight: 500; margin-bottom: 8px; }
+        
+        .btn-container { margin-top: 1.5rem; }
+        button { background-color: #2d5a27; color: white; border: none; padding: 12px 20px; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; transition: 0.2s; }
+        button:active { transform: scale(0.97); }
+        
+        /* Footer Fisso */
+        .footer-note { margin-top: 1.5rem; font-size: 0.65rem; color: #777; line-height: 1.2; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="header-title">Menu Infanzia Primavera / Estate 2026</div>
+    <div id="date-display" class="date-info"></div>
+    
+    <div id="menu-content" class="menu-grid">
+        </div>
+
+    <div class="btn-container">
+        <button id="toggle-btn" onclick="toggleView()">Vedi Domani</button>
+    </div>
+
+    <div class="footer-note">© 2026 Ellybruco Software</div>
+</div>
+
+<script>
+    let showingTomorrow = false;
+
+    const menuData = {
+        1: {
+            1: ["Pasta al Pomodoro e Basilico", "Prosciutto Cotto, Bieta Erbetta* all’Olio", "Pane – Frutta Fresca di Stagione"],
+            2: ["Insalata di Pasta (Pomodori, Olive Nere, Edamer) / In caso di maltempo PASTA OLIO E GRANA", "Arrosto di Tacchino agli Aromi", "Insalata Verde e Cavolo Cappuccio", "Pane – Frutta Fresca di Stagione"],
+            3: ["Risotto ai Piselli*", "Bocconcini di Mozzarella", "Carote Julienne", "Pane – Frutta Fresca di Stagione"],
+            4: ["Pasta Integrale al Pesto", "Frittata con Zucchine Julienne", "Pomodori", "Pane – Budino"],
+            5: ["Pasta Olio e Grana", "Fettuccine di Totano* Gratinate", "Insalata Fredda di Fagiolini*", "Pane – Frutta Fresca di Stagione"]
+        },
+        2: {
+            1: ["Pasta Bianca al Tonno", "Primo Sale", "Pomodori", "Pane – Frutta Fresca di Stagione"],
+            2: ["Pasta al Pomodoro e Basilico", "Cotoletta di Pollo", "Fagiolini* Brasati", "Pane – Dolce"],
+            3: ["Risotto alle Zucchine*", "Uova Strapazzate", "Carote Julienne", "Pane – Frutta Fresca di Stagione"],
+            4: ["Ravioli di Magro Olio e Salvia", "Polpette di Manzo al Pomodoro", "Bieta Erbetta* all’Olio", "Pane – Frutta Fresca di Stagione"],
+            5: ["Pasta Pomodoro e Melanzane*", "Hamburger di Fil. Platessa*", "Insalata Verde e Mais", "Pane – Frutta Fresca di Stagione"]
+        },
+        3: {
+            1: ["Pasta al Pesto", "Tonno all'olio di oliva", "Carote Julienne", "Pane - Frutta fresca di stagione"],
+            2: ["Insalata di Riso (pomodori, edamer, piselli, mais) / In caso di maltempo RISO OLIO E GRANA", "Frittata agli Spinaci*", "Insalata Fredda di Fagiolini*", "Pane – Frutta Fresca di Stagione"],
+            3: ["Risotto alla Parmigiana", "Caprese (Mozzarella e Pomodori)", "niente", "Pane – Frutta Fresca di Stagione"],
+            4: ["Pasta Olio e Grana", "Bocconcini di Tacchino alla Pizzaiola", "Erbette* alla Parmigiana", "Pane – Budino"],
+            5: ["Pasta Pomodoro e Olive Nere", "Sformato Patate, Formaggio e Spinaci*", "Insalata Verde e Cavolo Cappuccio", "Pane – Frutta Fresca di Stagione"]
+        },
+        4: {
+            1: ["Focaccia Fresca", "Prosciutto Cotto", "Insalata verde e cetrioli", "Pane - Frutta fresca di stagione"],
+            2: ["Orzotto al Pesto di Zucchine", "Cotoletta di Pollo", "Patate al Forno", "Pane - Frutta fresca di stagione"],
+            3: ["Risotto allo Zafferano", "Fagottino Mediterraneo", "Pomodori", "Pane - Frutta fresca di stagione"],
+            4: ["Ravioli di Magro Olio e Salvia", "Uova Strapazzate", "Carote Julienne", "Torta"],
+            5: ["Pasta Bianca al Tonno", "Bastoncini di Merluzzo", "Piselli all'Olio", "Pane - Frutta fresca di stagione"]
+        }
+    };
+
+    function updateDisplay(offset = 0) {
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + offset);
+        
+        const dayOfWeek = targetDate.getDay(); 
+        const startDate = new Date(2026, 3, 13); // Partenza fissa dal 13 aprile
+        const diffInWeeks = Math.floor((targetDate - startDate) / (7 * 24 * 60 * 60 * 1000));
+        const weekNum = ((diffInWeeks % 4) + 4) % 4 + 1;
+
+        const dateOptions = { weekday: 'long', day: 'numeric', month: 'long' };
+        document.getElementById('date-display').innerHTML = 
+            targetDate.toLocaleDateString('it-IT', dateOptions).toUpperCase() + ` • <b>SETTIMANA ${weekNum}</b>`;
+        
+        document.getElementById('toggle-btn').innerText = offset === 0 ? "Vedi Domani" : "Torna a Oggi";
+
+        const content = document.getElementById('menu-content');
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            content.innerHTML = "<div style='padding:20px;'>📴 Mensa chiusa nel weekend.</div>";
+        } else {
+            const data = menuData[weekNum][dayOfWeek];
+            content.innerHTML = `
+                <div class="row"><div class="label">Primo</div><div class="value">${data[0]}</div></div>
+                <div class="row"><div class="label">Secondo</div><div class="value">${data[1]}</div></div>
+                <div class="row"><div class="label">Contorno</div><div class="value">${data[2]}</div></div>
+                <div class="row"><div class="label">Pane/Dolce</div><div class="value">${data[3]}</div></div>
+            `;
+        }
+    }
+
+    function toggleView() {
+        showingTomorrow = !showingTomorrow;
+        updateDisplay(showingTomorrow ? 1 : 0);
+    }
+
+    updateDisplay(0);
+</script>
+</body>
+</html>
