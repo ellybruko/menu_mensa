@@ -81,7 +81,7 @@
         }
     };
 
-    function updateDisplay(offset = 0) {
+   function updateDisplay(offset = 0) {
         const targetDate = new Date();
         targetDate.setDate(targetDate.getDate() + offset);
         
@@ -91,13 +91,31 @@
         const weekNum = ((diffInWeeks % 4) + 4) % 4 + 1;
 
         const dateOptions = { weekday: 'long', day: 'numeric', month: 'long' };
-        document.getElementById('date-display').innerHTML = 
-            targetDate.toLocaleDateString('it-IT', dateOptions).toUpperCase() + ` • <b>SETTIMANA ${weekNum}</b>`;
+        
+        // Controllo periodo di chiusura estiva (1 Luglio - 7 Settembre)
+        const currentYear = targetDate.getFullYear();
+        const checkDate = new Date(currentYear, targetDate.getMonth(), targetDate.getDate());
+        const closureStart = new Date(currentYear, 6, 1);  // 6 = Luglio in JS
+        const closureEnd = new Date(currentYear, 8, 7);    // 8 = Settembre in JS
+        
+        const isClosedForSummer = (checkDate >= closureStart && checkDate <= closureEnd);
+
+        // Aggiorna l'intestazione della data
+        if (isClosedForSummer) {
+            document.getElementById('date-display').innerHTML = targetDate.toLocaleDateString('it-IT', dateOptions).toUpperCase();
+        } else {
+            document.getElementById('date-display').innerHTML = 
+                targetDate.toLocaleDateString('it-IT', dateOptions).toUpperCase() + ` • <b>SETTIMANA ${weekNum}</b>`;
+        }
         
         document.getElementById('toggle-btn').innerText = offset === 0 ? "Vedi Domani" : "Torna a Oggi";
 
         const content = document.getElementById('menu-content');
-        if (dayOfWeek === 0 || dayOfWeek === 6) {
+        
+        // Logica di visualizzazione (Chiusura estiva -> Weekend -> Menù normale)
+        if (isClosedForSummer) {
+            content.innerHTML = "<div style='padding:20px; color:#b53737; font-weight:bold;'>☀️ Scuola chiusa per la pausa estiva<br><span style='font-size:0.9rem; font-weight:normal; color:#666;'>Dal 1° luglio al 7 settembre</span></div>";
+        } else if (dayOfWeek === 0 || dayOfWeek === 6) {
             content.innerHTML = "<div style='padding:20px;'>📴 Mensa chiusa nel weekend.</div>";
         } else {
             const data = menuData[weekNum][dayOfWeek];
