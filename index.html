@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Mensa</title>
-    <meta name="description" content="Menu Mensa scuole Infanzia di Rozzano, primavera-estate 2026">
+    <title>Menu Mensa Infanzia</title>
+    <meta name="description" content="Menu Mensa scuole Infanzia di Rozzano, autunno-inverno 2026-2027">
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: #333; }
-        .card { background: white; padding: 1.5rem; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 450px; text-align: center; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: #333; padding-bottom: 50px; box-sizing: border-box; }
+        .card { background: white; padding: 1.5rem 1.5rem 2.5rem 1.5rem; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 450px; text-align: center; }
         
         /* Titolo Fisso */
         .header-title { font-size: 1.1rem; color: #2d5a27; font-weight: bold; margin-bottom: 1rem; }
         
         .date-info { color: #666; font-size: 0.9rem; margin-bottom: 1rem; border-bottom: 2px solid #eef2ee; padding-bottom: 10px; }
-        .menu-grid { text-align: center; background: #fff; } /* Centrato */
+        .menu-grid { text-align: center; background: #fff; }
         .row { margin-bottom: 12px; }
         .label { font-size: 0.7rem; color: #888; text-transform: uppercase; font-weight: bold; margin-bottom: 2px; }
         .value { font-size: 1rem; color: #222; font-weight: 500; margin-bottom: 8px; }
@@ -27,81 +27,96 @@
         button { background-color: #2d5a27; color: white; border: none; padding: 12px 20px; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; transition: 0.2s; }
         button:active { transform: scale(0.97); }
         
-        /* Footer Fisso */
-        .footer-note { margin-top: 1.5rem; font-size: 0.65rem; color: #777; line-height: 1.2; border-top: 1px solid #eee; padding-top: 10px; }
+        /* Footer Fisso a Piè di Pagina */
+        .footer-note { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            background: #ffffff; 
+            padding: 8px 12px; 
+            font-size: 0.62rem; 
+            color: #666; 
+            line-height: 1.3; 
+            border-top: 1px solid #e1e4e3; 
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.03);
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="header-title">Menu Infanzia Primavera / Estate 2026</div>
+    <div class="header-title">Menu Infanzia Autunno / Inverno 2026-2027</div>
     <div id="date-display" class="date-info"></div>
     
     <div id="menu-content" class="menu-grid">
-        </div>
+    </div>
 
     <div class="btn-container">
         <button id="toggle-btn" onclick="toggleView()">Vedi Domani</button>
     </div>
+</div>
 
-    <div class="footer-note">© 2026 Ellybruco Software</div>
+<!-- Footer Fisso Sempre Visibile -->
+<div class="footer-note">
+    * I prodotti contrassegnati con “*” potrebbero contenere materie prime surgelate all'origine. © 2026 Ellybruco Software
 </div>
 
 <script>
     let showingTomorrow = false;
 
+    // Dati specifici per la SCUOLA DELL'INFANZIA (Autunno / Inverno 2026-2027)
     const menuData = {
         1: {
-            1: ["Pasta al Pomodoro e Basilico", "Prosciutto Cotto", "Bieta Erbetta* all’Olio", "Pane – Frutta Fresca di Stagione"],
-            2: ["Insalata di Pasta (Pomodori, Olive Nere, Edamer) / In caso di maltempo PASTA OLIO E GRANA", "Arrosto di Tacchino agli Aromi", "Insalata Verde e Cavolo Cappuccio", "Pane – Frutta Fresca di Stagione"],
-            3: ["Risotto ai Piselli*", "Bocconcini di Mozzarella", "Carote Julienne", "Pane – Frutta Fresca di Stagione"],
-            4: ["Pasta Integrale al Pesto", "Frittata con Zucchine Julienne", "Pomodori", "Pane – Budino"],
-            5: ["Pasta Olio e Grana", "Fettuccine di Totano* Gratinate", "Insalata Fredda di Fagiolini*", "Pane – Frutta Fresca di Stagione"]
+            1: ["Pasta al Pesto", "Uova Strapazzate al Formaggio", "Piselli* e Carote* all'Olio", "Pane – Yogurt alla Frutta"],
+            2: ["Pastina in Brodo", "Cotoletta di Pollo", "Patate* al Forno", "Pane – Frutta Fresca di Stagione"],
+            3: ["Pasta Pomodoro e Basilico", "Fagottino Mediterraneo*", "Fagiolini* all'Olio", "Pane – Torta"],
+            4: ["Pasta al Pesto di Broccoli*", "Primo Sale", "Finocchi Julienne", "Pane – Budino"],
+            5: ["Pasta Pomodoro e Olive Nere", "Bastoncini di Merluzzo*", "Carote Julienne", "Pane – Frutta Fresca di Stagione"]
         },
         2: {
-            1: ["Pasta Bianca al Tonno", "Primo Sale", "Pomodori", "Pane – Frutta Fresca di Stagione"],
-            2: ["Pasta al Pomodoro e Basilico", "Cotoletta di Pollo", "Fagiolini* Brasati", "Pane – Dolce"],
-            3: ["Risotto alle Zucchine*", "Uova Strapazzate", "Carote Julienne", "Pane – Frutta Fresca di Stagione"],
-            4: ["Ravioli di Magro Olio e Salvia", "Polpette di Manzo al Pomodoro", "Bieta Erbetta* all’Olio", "Pane – Frutta Fresca di Stagione"],
-            5: ["Pasta Pomodoro e Melanzane*", "Hamburger di Fil. Platessa*", "Insalata Verde e Mais", "Pane – Frutta Fresca di Stagione"]
+            1: ["Crema di Piselli* con Pasta", "Prosciutto Cotto", "Spinaci* all'Olio", "Pane – Frutta Fresca di Stagione"],
+            2: ["Pasta Pasticciata", "Mozzarella / Piadina Prosc. Cotto e Formaggio", "Insalata Verde", "Pane – Yogurt alla Frutta"],
+            3: ["Risotto alla Parmigiana", "Frittata ai Porri", "Cavolfiori* all'Olio", "Pane – Frutta Fresca di Stagione"],
+            4: ["Risotto allo Zafferano", "Arrosto di Tacchino agli Aromi", "Insalata Mista", "Pane – Budino"],
+            5: ["Crema di Fagioli con Pasta", "Hamburger di Fil. Merluzzo*", "Carote* Brasate", "Pane – Frutta Fresca di Stagione"]
         },
         3: {
-            1: ["Pasta al Pesto", "Tonno all'olio di oliva", "Carote Julienne", "Pane - Frutta fresca di stagione"],
-            2: ["Insalata di Riso (pomodori, edamer, piselli, mais) / In caso di maltempo RISO OLIO E GRANA", "Frittata agli Spinaci*", "Insalata Fredda di Fagiolini*", "Pane – Frutta Fresca di Stagione"],
-            3: ["Risotto alla Parmigiana", "Caprese (Mozzarella e Pomodori)", "niente", "Pane – Frutta Fresca di Stagione"],
-            4: ["Pasta Olio e Grana", "Bocconcini di Tacchino alla Pizzaiola", "Erbette* alla Parmigiana", "Pane – Budino"],
-            5: ["Pasta Pomodoro e Olive Nere", "Sformato Patate, Formaggio e Spinaci*", "Insalata Verde e Cavolo Cappuccio", "Pane – Frutta Fresca di Stagione"]
+            1: ["Pasta Integrale in Salsa Aurora", "Uova Strapazzate al Formaggio", "Fagiolini* all'Olio", "Pane – Yogurt alla Frutta"],
+            2: ["Vellutata di Lenticchie con Pasta", "Pollo", "Insalata Verde", "Pane – Frutta Fresca di Stagione"],
+            3: ["Risotto allo Zafferano", "Bocconcini di Mozzarella", "Verdure* Tricolore al Forno", "Pane – Frutta Fresca di Stagione"],
+            4: ["Pasta Olio e Grana", "Polpette di Manzo alla Pizzaiola", "Carote* Brasate", "Pane – Budino"],
+            5: ["Pasta Pomodoro e Basilico", "Fil. Merluzzo* Gratinato", "Bieta Erbetta* all'Olio", "Pane – Frutta Fresca di Stagione"]
         },
         4: {
-            1: ["Focaccia Fresca", "Prosciutto Cotto", "Insalata verde e cetrioli", "Pane - Frutta fresca di stagione"],
-            2: ["Orzotto al Pesto di Zucchine", "Cotoletta di Pollo", "Patate al Forno", "Pane - Frutta fresca di stagione"],
-            3: ["Risotto allo Zafferano", "Fagottino Mediterraneo", "Pomodori", "Pane - Frutta fresca di stagione"],
-            4: ["Ravioli di Magro Olio e Salvia", "Uova Strapazzate", "Carote Julienne", "Torta"],
-            5: ["Pasta Bianca al Tonno", "Bastoncini di Merluzzo", "Piselli all'Olio", "Pane - Frutta fresca di stagione"]
+            1: ["Pasta al Ragù di Verdure*", "Pizza Margherita / Frittata alle Zucchine Julienne", "Broccoli* al Vapore", "Pane – Frutta Fresca di Stagione"],
+            2: ["Pastina in Brodo", "Brasato di Manzo", "Polenta", "Pane – Frutta Fresca di Stagione"],
+            3: ["Ravioli di Magro Olio e Salvia", "Fagottino Mediterraneo*", "Spinaci* alla Parmigiana", "Pane – Yogurt alla Frutta"],
+            4: ["Risotto alla Zucca*", "Scaloppina di Pollo al Limone", "Insalata Mista", "Pane – Frutta Fresca di Stagione"],
+            5: ["Crema di Verdure* con Orzo", "Totani* Gratinati", "Carote Julienne", "Pane – Torta"]
         }
     };
 
-   function updateDisplay(offset = 0) {
+    function updateDisplay(offset = 0) {
         const targetDate = new Date();
         targetDate.setDate(targetDate.getDate() + offset);
         
         const dayOfWeek = targetDate.getDay(); 
-        const startDate = new Date(2026, 3, 13); // Partenza fissa dal 13 aprile
+        
+        const startDate = new Date(2026, 9, 26); // 26 Ottobre 2026
         const diffInWeeks = Math.floor((targetDate - startDate) / (7 * 24 * 60 * 60 * 1000));
         const weekNum = ((diffInWeeks % 4) + 4) % 4 + 1;
 
         const dateOptions = { weekday: 'long', day: 'numeric', month: 'long' };
         
-        // Controllo periodo di chiusura estiva (1 Luglio - 7 Settembre)
-        const currentYear = targetDate.getFullYear();
-        const checkDate = new Date(currentYear, targetDate.getMonth(), targetDate.getDate());
-        const closureStart = new Date(currentYear, 6, 1);  // 6 = Luglio in JS
-        const closureEnd = new Date(currentYear, 8, 7);    // 8 = Settembre in JS
-        
-        const isClosedForSummer = (checkDate >= closureStart && checkDate <= closureEnd);
+        const month = targetDate.getMonth();
+        const day = targetDate.getDate();
+        const isClosedForHolidays = (month === 11 && day >= 23) || (month === 0 && day <= 6);
 
-        // Aggiorna l'intestazione della data
-        if (isClosedForSummer) {
+        if (isClosedForHolidays) {
             document.getElementById('date-display').innerHTML = targetDate.toLocaleDateString('it-IT', dateOptions).toUpperCase();
         } else {
             document.getElementById('date-display').innerHTML = 
@@ -112,9 +127,8 @@
 
         const content = document.getElementById('menu-content');
         
-        // Logica di visualizzazione (Chiusura estiva -> Weekend -> Menù normale)
-        if (isClosedForSummer) {
-            content.innerHTML = "<div style='padding:20px; color:#b53737; font-weight:bold;'>☀️ Scuola chiusa per la pausa estiva<br><span style='font-size:0.9rem; font-weight:normal; color:#666;'>Dal 1° luglio al 7 settembre</span></div>";
+        if (isClosedForHolidays) {
+            content.innerHTML = "<div style='padding:20px; color:#b53737; font-weight:bold;'>🎄 Scuola chiusa per le vacanze natalizie<br><span style='font-size:0.9rem; font-weight:normal; color:#666;'>Dal 23 dicembre al 6 gennaio</span></div>";
         } else if (dayOfWeek === 0 || dayOfWeek === 6) {
             content.innerHTML = "<div style='padding:20px;'>📴 Mensa chiusa nel weekend.</div>";
         } else {
